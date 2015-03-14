@@ -1,0 +1,66 @@
+html {
+  background              : url(../img/weather-bg.jpg) no-repeat center center fixed;
+  -webkit-background-size : cover;
+  -moz-background-size    : cover;
+  -o-background-size      : cover;
+  background-size         : cover;
+}
+
+body {
+  padding-top : 50px;
+  background  : none;
+  color       : #fff;
+  min-height  : 600px;
+}
+
+#assign-header {
+  padding    : 40px 15px;
+  text-align : center;
+}
+
+#assign-nav {
+    text-align : center;
+    margin     : 0 10px;
+}
+#assign-nav ul {
+    padding    : 0;
+    margin     : 0;
+    list-style : none;
+}
+
+#assign-nav li {
+    display : inline-block;
+    margin  : 0 0 5px 5px;
+}
+
+#assign-nav li:first-child {
+    margin-left : 0;
+}
+
+#result {
+    text-align : center;
+    margin     : 10px;
+    max-width  : 300px;
+}
+
+#alerts {
+    text-align : center;
+    margin     : 10px;
+}
+
+.temperature-form-wrapper {
+    max-width : 300px;
+    margin    : 0 auto;
+}
+
+.footer {
+    position   : absolute;
+    left       : 0;
+    right      : 0;
+    bottom     : 0;
+    padding    : 10px;
+    text-align : center;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+
