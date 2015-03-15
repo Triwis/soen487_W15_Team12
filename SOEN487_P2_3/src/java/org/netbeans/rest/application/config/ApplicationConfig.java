@@ -23,6 +23,7 @@ public class ApplicationConfig extends Application {
      */
     private Set<Class<?>> getRestResourceClasses() {
         Set<Class<?>> resources = new java.util.HashSet<Class<?>>();
+        resources.add(StockExchange.ExchangeService.class);
         return resources;
     }
     

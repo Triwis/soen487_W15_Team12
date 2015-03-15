@@ -53,11 +53,7 @@ public class StockExchangeResource {
         
         return Response.ok("<business>" + 
                 "  <symbol>" + bus.getSymbol() + "</symbol>" +
-                "  <shares>" +
-                    instance.shareToXml(bus.getShareInfo("common")) +
-                    instance.shareToXml(bus.getShareInfo("preferred")) +
-                    instance.shareToXml(bus.getShareInfo("convertible")) +
-                "  </shares>" +
+                "  <price>" + bus.getPrice() + "</price>" +
                 "</business>").build();
     }
 
@@ -68,21 +64,33 @@ public class StockExchangeResource {
         Business bus = instance.getBusiness(symbol);
        
         try {
-            LinkedList<JSONObject> shares = new LinkedList<JSONObject>();
-            shares.add(instance.shareToJson(bus.getShareInfo("common")));
-            shares.add(instance.shareToJson(bus.getShareInfo("preferred")));
-            shares.add(instance.shareToJson(bus.getShareInfo("convertible")));
-            
             JSONObject response = new JSONObject();
-            JSONArray jShares = new JSONArray(shares);
             response.put("symbol", bus.getSymbol());
-            response.put("shares", jShares);
-            
+            response.put("price", bus.getPrice());
             return Response.ok(response).build();
         }
         catch (JSONException e) { 
             return Response.serverError().build(); 
         }
+    }
+    
+    @POST
+    @Consumes("application/json")
+    public Response postJson(String content) {
+        StockExchangeBean instance = StockExchangeBean.getInstance();
+        
+        try {
+            JSONObject json = new JSONObject(content);
+            InputSource is = new InputSource(new StringReader(content));
+            String symbol = json.getString("symbol");
+            double price = json.getDouble("price");
+            
+            Business newBus = new Business(symbol, price);
+            instance.setBusiness(newBus);
+            
+            return Response.ok().build();
+        }
+        catch (Exception e) { return Response.serverError().build(); }
     }
     
     @POST
@@ -94,7 +102,7 @@ public class StockExchangeResource {
         try {
             InputSource is = new InputSource(new StringReader(content));
             String symbol = xpath.evaluate("/business/symbol", is);
-            Business newBus = new Business(symbol, "", "");
+            Business newBus = new Business(symbol, price);
             instance.setBusiness(newBus);
             return Response.ok().build();
         }
@@ -160,5 +168,4 @@ public class StockExchangeResource {
             return Response.serverError().build();
         }
     }
-    
 }

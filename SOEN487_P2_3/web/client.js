@@ -95,7 +95,7 @@ $(document).ready(function () {
             console.log("Done fetching. Response");
             console.log(response);
         }
-    })
+    });
 
     // Test deleting the business
     console.log("\nDeleting the business...");
