@@ -24,7 +24,6 @@ import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.xml.sax.InputSource;
-import business.Share;
 
 /**
 * Temperature Resource (REST Web Service)
@@ -102,6 +101,7 @@ public class StockExchangeResource {
         try {
             InputSource is = new InputSource(new StringReader(content));
             String symbol = xpath.evaluate("/business/symbol", is);
+            double price = Double.parseDouble(xpath.evaluate("/business/price", is));
             Business newBus = new Business(symbol, price);
             instance.setBusiness(newBus);
             return Response.ok().build();
@@ -124,10 +124,10 @@ public class StockExchangeResource {
         
         try {
             InputSource is = new InputSource(new StringReader(content));
-            String shareType = xpath.evaluate("/share/shareType", is);
-            float unitPrice = Float.parseFloat(xpath.evaluate("/share/unitPrice", is));
-            Share updatedShare = new Share(symbol, shareType, unitPrice);
-            // bus.updateShareInfo(updatedShare);
+            double price = Double.parseDouble(xpath.evaluate("/business/price", is));
+            bus.setPrice(price);
+            instance.setBusiness(bus);
+            
             return Response.ok().build();
         }
         catch (Exception e) { 
@@ -143,10 +143,9 @@ public class StockExchangeResource {
         
         try {
             JSONObject json = new JSONObject(content);
-            String shareType = json.getString("shareType");
-            float unitPrice = (float) json.getDouble("unitPrice");
-            Share updatedShare = new Share(symbol, shareType, unitPrice);
-            // bus.updateShareInfo(updatedShare);
+            double unitPrice = json.getDouble("price");
+            bus.setPrice(unitPrice);
+            instance.setBusiness(bus);
             
             return Response.ok().build();
         }
