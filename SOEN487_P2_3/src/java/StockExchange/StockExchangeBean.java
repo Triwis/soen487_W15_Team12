@@ -6,7 +6,6 @@ import javax.xml.xpath.XPathFactory;
 import org.xml.sax.InputSource;
 import java.io.StringReader;
 import business.Business;
-import business.Share;
 import java.util.HashMap;
 import java.util.Map;
 import org.codehaus.jettison.json.JSONException;
@@ -71,67 +70,67 @@ public class StockExchangeBean {
         this.businesses.remove(business.getSymbol());
     }
     
-    /**
-     * Parse a Share from xml data.
-     * @param xml
-     * @return 
-     */
-    public Share parseXmlShare(String xml) {
-        XPathFactory xpathFactory = XPathFactory.newInstance();
-        XPath xpath = xpathFactory.newXPath();
-        
-        try {
-            InputSource is = new InputSource(new StringReader(xml));
-            float price = Float.parseFloat(xpath.evaluate("/share/price", is));
-            String shareType = xpath.evaluate("/share/type", is);
-            String symbol = xpath.evaluate("/share/symbol", is);
-            return new Share(symbol, shareType, price);
-        } 
-        catch(Exception e) { return null; }
-    }
-    
-    /**
-     * Convert a share into its XML representation.
-     * 
-     * @param share
-     * @return 
-     */
-    public String shareToXml(Share share) {
-        return "<share>"
-                + "  <symbol>" + share.businessSymbol + "</symbol>"
-                + "  <shareType>" + share.shareType + "</shareType>"
-                + "  <unitPrice>" + share.unitPrice + "</unitprice>"
-                + "</share>";
-    }
-    
-    /**
-     * Convert a Share into a JSON object.
-     * 
-     * @param share
-     * @return
-     * @throws JSONException 
-     */
-    public JSONObject shareToJson(Share share) throws JSONException {
-        JSONObject jShare = new JSONObject();
-        JSONObject jStockprice = new JSONObject();
-
-        jShare.put("symbol", share.businessSymbol);
-        jShare.put("shareType", share.shareType);
-        jShare.put("unitPrice", share.unitPrice);
-
-        return jShare;
-    }
-    
-    /**
-     * Parse a Share from a JSON object.
-     * @param json
-     * @return
-     * @throws JSONException 
-     */
-    public Share jsonToShare(JSONObject json) throws JSONException {
-        String symbol = (String)json.get("symbol");
-        String shareType = (String)json.get("shareType");
-        float unitPrice = (float)json.getDouble("unitPrice");
-        return new Share(symbol, shareType, unitPrice);
-    }
+//    /**
+//     * Parse a Share from xml data.
+//     * @param xml
+//     * @return 
+//     */
+//    public Share parseXmlShare(String xml) {
+//        XPathFactory xpathFactory = XPathFactory.newInstance();
+//        XPath xpath = xpathFactory.newXPath();
+//        
+//        try {
+//            InputSource is = new InputSource(new StringReader(xml));
+//            float price = Float.parseFloat(xpath.evaluate("/share/price", is));
+//            String shareType = xpath.evaluate("/share/type", is);
+//            String symbol = xpath.evaluate("/share/symbol", is);
+//            return new Share(symbol, shareType, price);
+//        } 
+//        catch(Exception e) { return null; }
+//    }
+//    
+//    /**
+//     * Convert a share into its XML representation.
+//     * 
+//     * @param share
+//     * @return 
+//     */
+//    public String shareToXml(Share share) {
+//        return "<share>"
+//                + "  <symbol>" + share.businessSymbol + "</symbol>"
+//                + "  <shareType>" + share.shareType + "</shareType>"
+//                + "  <unitPrice>" + share.unitPrice + "</unitprice>"
+//                + "</share>";
+//    }
+//    
+//    /**
+//     * Convert a Share into a JSON object.
+//     * 
+//     * @param share
+//     * @return
+//     * @throws JSONException 
+//     */
+//    public JSONObject shareToJson(Share share) throws JSONException {
+//        JSONObject jShare = new JSONObject();
+//        JSONObject jStockprice = new JSONObject();
+//
+//        jShare.put("symbol", share.businessSymbol);
+//        jShare.put("shareType", share.shareType);
+//        jShare.put("unitPrice", share.unitPrice);
+//
+//        return jShare;
+//    }
+//    
+//    /**
+//     * Parse a Share from a JSON object.
+//     * @param json
+//     * @return
+//     * @throws JSONException 
+//     */
+//    public Share jsonToShare(JSONObject json) throws JSONException {
+//        String symbol = (String)json.get("symbol");
+//        String shareType = (String)json.get("shareType");
+//        float unitPrice = (float)json.getDouble("unitPrice");
+//        return new Share(symbol, shareType, unitPrice);
+//    }
 }
