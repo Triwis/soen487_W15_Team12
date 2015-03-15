@@ -70,7 +70,6 @@ public class xmlUtils {
             }
         }
         Document newXML = null;
-        //File file = new File("")
         try {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
@@ -81,22 +80,6 @@ public class xmlUtils {
         catch (Exception e) {}
         finally {
             return list;
-        }
-    }
-    
-    private static void goThroughDocument(Node node) {
-        if (node.getNodeType() == Node.ELEMENT_NODE && node.getNodeName().equals("price")) {
-            Random rand = new Random();
-            int value = rand.nextInt(501)+1;
-            node.setTextContent(Integer.toString(value));
-        }
-        
-        NodeList nodeList = node.getChildNodes();
-        for (int i = 0; i < nodeList.getLength(); i++) {
-            Node currentNode = nodeList.item(i);
-            if (currentNode.getNodeType() == Node.ELEMENT_NODE) {
-                goThroughDocument(currentNode);
-            }
         }
     }
 }

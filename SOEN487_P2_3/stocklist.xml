@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><stocklist>
+	<stock>
+		<symbol>
+			AAPL
+		</symbol>
+		<name>
+			Apple Inc.
+		</name>
+		<price>236</price>
+	</stock>
+	<stock>	
+		<symbol>
+			GOOG
+		</symbol>
+		<name>
+			Google
+		</name>
+		<price>53</price>
+	</stock>
+	<stock>
+		<symbol>
+			MSFT
+		</symbol>
+		<name>
+			Microsoft Corporation
+		</name>
+		<price>118</price>
+	</stock>
+	<stock>	
+		<symbol>
+			YHOO
+		</symbol>
+		<name>
+			Yahoo! Inc.
+		</name>
+		<price>631</price>
+	</stock>
+</stocklist>
